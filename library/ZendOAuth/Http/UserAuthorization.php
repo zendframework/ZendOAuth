@@ -22,13 +22,13 @@
 /**
  * @namespace
  */
-namespace Zend\OAuth\HTTP;
+namespace Zend\OAuth\Http;
 
-use Zend\OAuth\HTTP as HTTPClient;
+use Zend\OAuth\Http as HTTPClient;
 
 /**
  * @uses       \Zend\OAuth\Client
- * @uses       \Zend\OAuth\HTTP
+ * @uses       \Zend\OAuth\Http
  * @uses       \Zend\URI\URL
  * @category   Zend
  * @package    Zend_OAuth

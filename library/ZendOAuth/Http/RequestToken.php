@@ -22,45 +22,45 @@
 /**
  * @namespace
  */
-namespace Zend\OAuth\HTTP;
-use Zend\OAuth\HTTP as HTTPClient,
+namespace Zend\OAuth\Http;
+use Zend\OAuth\Http as HTTPClient,
     Zend\OAuth,
-    Zend\HTTP;
+    Zend\Http;
 
 /**
- * @uses       Zend\HTTP\Client
+ * @uses       Zend\Http\Client
  * @uses       Zend\OAuth\OAuth
- * @uses       Zend\OAuth\HTTP
- * @uses       Zend\OAuth\Token\Access
+ * @uses       Zend\OAuth\Http
+ * @uses       Zend\OAuth\Token\Request
  * @category   Zend
  * @package    Zend_OAuth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class AccessToken extends HTTPClient
+class RequestToken extends HTTPClient
 {
     /**
      * Singleton instance if required of the HTTP client
      *
-     * @var \Zend\HTTP\Client
+     * @var Zend\Http\Client
      */
     protected $_httpClient = null;
 
     /**
-     * Initiate a HTTP request to retrieve an Access Token.
+     * Initiate a HTTP request to retrieve a Request Token.
      *
-     * @return \Zend\OAuth\Token\Access
+     * @return Zend\OAuth\Token\Request
      */
     public function execute()
     {
         $params   = $this->assembleParams();
         $response = $this->startRequestCycle($params);
-        $return   = new OAuth\Token\Access($response);
+        $return   = new OAuth\Token\Request($response);
         return $return;
     }
 
     /**
-     * Assemble all parameters for an OAuth Access Token request.
+     * Assemble all parameters for an OAuth Request Token request.
      *
      * @return array
      */
@@ -69,11 +69,17 @@ class AccessToken extends HTTPClient
         $params = array(
             'oauth_consumer_key'     => $this->_consumer->getConsumerKey(),
             'oauth_nonce'            => $this->_httpUtility->generateNonce(),
-            'oauth_signature_method' => $this->_consumer->getSignatureMethod(),
             'oauth_timestamp'        => $this->_httpUtility->generateTimestamp(),
-            'oauth_token'            => $this->_consumer->getLastRequestToken()->getToken(),
+            'oauth_signature_method' => $this->_consumer->getSignatureMethod(),
             'oauth_version'          => $this->_consumer->getVersion(),
         );
+
+        // indicates we support 1.0a
+        if ($this->_consumer->getCallbackUrl()) {
+            $params['oauth_callback'] = $this->_consumer->getCallbackUrl();
+        } else {
+            $params['oauth_callback'] = 'oob';
+        }
 
         if (!empty($this->_parameters)) {
             $params = array_merge($params, $this->_parameters);
@@ -83,9 +89,9 @@ class AccessToken extends HTTPClient
             $params,
             $this->_consumer->getSignatureMethod(),
             $this->_consumer->getConsumerSecret(),
-            $this->_consumer->getLastRequestToken()->getTokenSecret(),
+            null,
             $this->_preferredRequestMethod,
-            $this->_consumer->getAccessTokenUrl()
+            $this->_consumer->getRequestTokenUrl()
         );
 
         return $params;
@@ -93,59 +99,47 @@ class AccessToken extends HTTPClient
 
     /**
      * Generate and return a HTTP Client configured for the Header Request Scheme
-     * specified by OAuth, for use in requesting an Access Token.
+     * specified by OAuth, for use in requesting a Request Token.
      *
-     * @param  array $params
-     * @return Zend\HTTP\Client
+     * @param array $params
+     * @return Zend\Http\Client
      */
     public function getRequestSchemeHeaderClient(array $params)
     {
-        $params      = $this->_cleanParamsOfIllegalCustomParameters($params);
-        $headerValue = $this->_toAuthorizationHeader($params);
-        $client      = OAuth\OAuth::getHTTPClient();
-
-        $client->setUri($this->_consumer->getAccessTokenUrl());
+        $headerValue = $this->_httpUtility->toAuthorizationHeader(
+            $params
+        );
+        $client = OAuth\OAuth::getHttpClient();
+        $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setHeaders('Authorization', $headerValue);
+        $rawdata = $this->_httpUtility->toEncodedQueryString($params, true);
+        if (!empty($rawdata)) {
+            $client->setRawData($rawdata);
+        }
         $client->setMethod($this->_preferredRequestMethod);
-
         return $client;
     }
 
     /**
      * Generate and return a HTTP Client configured for the POST Body Request
-     * Scheme specified by OAuth, for use in requesting an Access Token.
+     * Scheme specified by OAuth, for use in requesting a Request Token.
      *
      * @param  array $params
-     * @return Zend\HTTP\Client
+     * @return Zend\Http\Client
      */
     public function getRequestSchemePostBodyClient(array $params)
     {
-        $params = $this->_cleanParamsOfIllegalCustomParameters($params);
-        $client = OAuth\OAuth::getHTTPClient();
-        $client->setUri($this->_consumer->getAccessTokenUrl());
+        $client = OAuth\OAuth::getHttpClient();
+        $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setMethod($this->_preferredRequestMethod);
         $client->setRawData(
             $this->_httpUtility->toEncodedQueryString($params)
         );
         $client->setHeaders(
-            HTTP\Client::CONTENT_TYPE,
-            HTTP\Client::ENC_URLENCODED
+            Http\Client::CONTENT_TYPE,
+            Http\Client::ENC_URLENCODED
         );
         return $client;
-    }
-
-    /**
-     * Generate and return a HTTP Client configured for the Query String Request
-     * Scheme specified by OAuth, for use in requesting an Access Token.
-     *
-     * @param  array $params
-     * @param  string $url
-     * @return Zend\HTTP\Client
-     */
-    public function getRequestSchemeQueryStringClient(array $params, $url)
-    {
-        $params = $this->_cleanParamsOfIllegalCustomParameters($params);
-        return parent::getRequestSchemeQueryStringClient($params, $url);
     }
 
     /**
@@ -153,7 +147,7 @@ class AccessToken extends HTTPClient
      * return the resulting HTTP Response.
      *
      * @param  array $params
-     * @return Zend\HTTP\Response
+     * @return Zend\Http\Response
      */
     protected function _attemptRequest(array $params)
     {
@@ -166,30 +160,9 @@ class AccessToken extends HTTPClient
                 break;
             case OAuth\OAuth::REQUEST_SCHEME_QUERYSTRING:
                 $httpClient = $this->getRequestSchemeQueryStringClient($params,
-                    $this->_consumer->getAccessTokenUrl());
+                    $this->_consumer->getRequestTokenUrl());
                 break;
         }
         return $httpClient->request();
-    }
-
-    /**
-     * Access Token requests specifically may not contain non-OAuth parameters.
-     * So these should be striped out and excluded. Detection is easy since
-     * specified OAuth parameters start with "oauth_", Extension params start
-     * with "xouth_", and no other parameters should use these prefixes.
-     *
-     * xouth params are not currently allowable.
-     *
-     * @param  array $params
-     * @return array
-     */
-    protected function _cleanParamsOfIllegalCustomParameters(array $params)
-    {
-        foreach ($params as $key=>$value) {
-            if (!preg_match("/^oauth_/", $key)) {
-                unset($params[$key]);
-            }
-        }
-        return $params;
     }
 }

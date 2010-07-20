@@ -22,13 +22,13 @@
 /**
  * @namespace
  */
-namespace Zend\OAuth\HTTP;
+namespace Zend\OAuth\Http;
 
 use Zend\OAuth;
 
 /**
  * @uses       Zend\OAuth\OAuth
- * @uses       Zend\OAuth\HTTP
+ * @uses       Zend\OAuth\Http
  * @category   Zend
  * @package    Zend_OAuth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)

@@ -27,14 +27,14 @@ namespace Zend\OAuth;
 /**
  * @uses       Zend\OAuth\OAuth
  * @uses       Zend\OAuth\Exception
- * @uses       Zend\OAuth\HTTP\Utility
+ * @uses       Zend\OAuth\Http\Utility
  * @uses       Zend\URI\URL
  * @category   Zend
  * @package    Zend_OAuth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class HTTP
+class Http
 {
     /**
      * Array of all custom service parameters to be sent in the HTTP request
@@ -70,7 +70,7 @@ class HTTP
     /**
      * Instance of the general Zend\OAuth\Http\Utility class.
      *
-     * @var Zend\OAuth\HTTP\Utility
+     * @var Zend\OAuth\Http\Utility
      */
     protected $_httpUtility = null;
 
@@ -79,10 +79,10 @@ class HTTP
      *
      * @param  Zend\OAuth\Consumer $consumer
      * @param  null|array $parameters
-     * @param  null|Zend\OAuth\HTTP\Utility $utility
+     * @param  null|Zend\OAuth\Http\Utility $utility
      * @return void
      */
-    public function __construct(Consumer $consumer, array $parameters = null, HTTP\Utility $utility = null) 
+    public function __construct(Consumer $consumer, array $parameters = null, Http\Utility $utility = null) 
     {
         $this->_consumer = $consumer;
         $this->_preferredRequestScheme = $this->_consumer->getRequestScheme();
@@ -92,7 +92,7 @@ class HTTP
         if (!is_null($utility)) {
             $this->_httpUtility = $utility;
         } else {
-            $this->_httpUtility = new HTTP\Utility;
+            $this->_httpUtility = new Http\Utility;
         }
     }
 
@@ -100,7 +100,7 @@ class HTTP
      * Set a preferred HTTP request method.
      *
      * @param  string $method
-     * @return Zend\OAuth\HTTP
+     * @return Zend\OAuth\Http
      */
     public function setMethod($method)
     {
@@ -125,7 +125,7 @@ class HTTP
      * Mutator to set an array of custom parameters for the HTTP request.
      *
      * @param  array $customServiceParameters
-     * @return Zend\OAuth\HTTP
+     * @return Zend\OAuth\Http
      */
     public function setParameters(array $customServiceParameters)
     {
@@ -162,7 +162,7 @@ class HTTP
      *
      * @todo   Remove cycling?; Replace with upfront do-or-die configuration
      * @param  array $params
-     * @return Zend\HTTP\Response
+     * @return Zend\Http\Response
      * @throws Zend\OAuth\Exception on HTTP request errors
      */
     public function startRequestCycle(array $params)
@@ -172,7 +172,7 @@ class HTTP
         $status   = null;
         try {
             $response = $this->_attemptRequest($params);
-        } catch (\Zend\HTTP\Client\Exception $e) {
+        } catch (\Zend\Http\Client\Exception $e) {
             throw new Exception('Error in HTTP request', null, $e);
         }
         if (!is_null($response)) {
@@ -197,7 +197,7 @@ class HTTP
      *
      * @param array $params
      * @param string $url
-     * @return Zend\HTTP\Client
+     * @return Zend\Http\Client
      */
     public function getRequestSchemeQueryStringClient(array $params, $url)
     {
@@ -214,11 +214,11 @@ class HTTP
      * Manages the switch from OAuth request scheme to another lower preference
      * scheme during a request cycle.
      *
-     * @param  Zend\HTTP\Response
+     * @param  Zend\Http\Response
      * @return void
      * @throws Zend\OAuth\Exception if unable to retrieve valid token response
      */
-    protected function _assessRequestAttempt(\Zend\HTTP\Response $response = null)
+    protected function _assessRequestAttempt(\Zend\Http\Response $response = null)
     {
         switch ($this->_preferredRequestScheme) {
             case OAuth::REQUEST_SCHEME_HEADER:
@@ -253,9 +253,9 @@ class HTTP
             if (!preg_match("/^oauth_/", $key)) {
                 continue;
             }
-            $headerValue[] = HTTP\Utility::urlEncode($key)
+            $headerValue[] = Http\Utility::urlEncode($key)
                            . '="'
-                           . HTTP\Utility::urlEncode($value)
+                           . Http\Utility::urlEncode($value)
                            . '"';
         }
         return implode(",", $headerValue);
