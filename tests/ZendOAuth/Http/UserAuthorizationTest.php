@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\OAuth\HTTP;
+namespace ZendTest\OAuth\Http;
 
-use Zend\OAuth\HTTP,
+use Zend\OAuth\Http,
     Zend\OAuth;
 
 class UserAuthorizationTest extends \PHPUnit_Framework_TestCase
@@ -17,19 +17,19 @@ class UserAuthorizationTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorSetsConsumerInstance()
     {
-        $redirect = new HTTP\UserAuthorization($this->stubConsumer);
-        $this->assertType('ZendTest\\OAuth\\HTTP\\Consumer34879', $redirect->getConsumer());
+        $redirect = new Http\UserAuthorization($this->stubConsumer);
+        $this->assertType('ZendTest\\OAuth\\Http\\Consumer34879', $redirect->getConsumer());
     }
 
     public function testConstructorSetsCustomServiceParameters()
     {
-        $redirect = new HTTP\UserAuthorization($this->stubConsumer, array(1,2,3));
+        $redirect = new Http\UserAuthorization($this->stubConsumer, array(1,2,3));
         $this->assertEquals(array(1,2,3), $redirect->getParameters());
     }
 
     public function testAssembleParametersReturnsUserAuthorizationParamArray()
     {
-        $redirect = new HTTP\UserAuthorization($this->stubConsumer, array('foo '=>'bar~'));
+        $redirect = new Http\UserAuthorization($this->stubConsumer, array('foo '=>'bar~'));
         $expected = array(
             'oauth_token'=>'1234567890',
             'oauth_callback'=>'http://www.example.com/local',
@@ -40,7 +40,7 @@ class UserAuthorizationTest extends \PHPUnit_Framework_TestCase
 
     public function testGetUrlReturnsEncodedQueryStringParamsAppendedToLocalUrl()
     {
-        $redirect = new HTTP\UserAuthorization($this->stubConsumer, array('foo '=>'bar~'));
+        $redirect = new Http\UserAuthorization($this->stubConsumer, array('foo '=>'bar~'));
         $expected =
             'http://www.example.com/authorize?oauth_token=1234567890&oauth_callback=http%3A%2F%2Fwww.example.com%2Flocal&foo%20=bar~';
         $this->assertEquals($expected, $redirect->getUrl());
