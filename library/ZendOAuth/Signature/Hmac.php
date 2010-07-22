@@ -23,45 +23,34 @@
  * @namespace
  */
 namespace Zend\OAuth\Signature;
-use Zend\Crypt\RSA as RSAEncryption;
+use Zend\Crypt\Hmac as HMACEncryption;
 
 /**
- * @uses       Zend\Crypt\RSA
+ * @uses       Zend\Crypt\Hmac
  * @uses       Zend\OAuth\Signature\AbstractSignature
  * @category   Zend
  * @package    Zend_OAuth
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class RSA extends AbstractSignature
+class Hmac extends AbstractSignature
 {
     /**
      * Sign a request
      * 
      * @param  array $params 
-     * @param  null|string $method 
-     * @param  null|string $url 
+     * @param  mixed $method 
+     * @param  mixed $url 
      * @return string
      */
-    public function sign(array $params, $method = null, $url = null) 
+    public function sign(array $params, $method = null, $url = null)
     {
-        $rsa = new RSAEncryption;
-        $rsa->setHashAlgorithm($this->_hashAlgorithm);
-        $sign = $rsa->sign(
-            $this->_getBaseSignatureString($params, $method, $url),
+        $binaryHash = HMACEncryption::compute(
             $this->_key,
-            RSAEncryption::BASE64
+            $this->_hashAlgorithm,
+            $this->_getBaseSignatureString($params, $method, $url),
+            HMACEncryption::BINARY
         );
-        return $sign;
-    }
-
-    /**
-     * Assemble encryption key
-     * 
-     * @return string
-     */
-    protected function _assembleKey()
-    {
-        return $this->_consumerSecret;
+        return base64_encode($binaryHash);
     }
 }
