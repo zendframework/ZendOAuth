@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth\Token;
+namespace ZendOAuthTest\Token;
 
-use Zend\OAuth\Token\Request as RequestToken;
+use ZendOAuth\Token\Request as RequestToken;
 use Zend\Http\Response as HTTPResponse;
 
 /**

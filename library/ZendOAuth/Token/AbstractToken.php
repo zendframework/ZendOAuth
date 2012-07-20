@@ -8,10 +8,10 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Token;
+namespace ZendOAuth\Token;
 
 use Zend\Http\Response as HTTPResponse;
-use Zend\OAuth\Http\Utility as HTTPUtility;
+use ZendOAuth\Http\Utility as HTTPUtility;
 
 /**
  * @category   Zend
@@ -42,7 +42,7 @@ abstract class AbstractToken implements TokenInterface
     protected $_response = null;
 
     /**
-     * @var \Zend\OAuth\Http\Utility
+     * @var \ZendOAuth\Http\Utility
      */
     protected $_httpUtility = null;
 
@@ -50,7 +50,7 @@ abstract class AbstractToken implements TokenInterface
      * Constructor; basic setup for any Token subclass.
      *
      * @param  null|\Zend\Http\Response $response
-     * @param  null|\Zend\OAuth\Http\Utility $utility
+     * @param  null|\ZendOAuth\Http\Utility $utility
      * @return void
      */
     public function __construct(
@@ -103,7 +103,7 @@ abstract class AbstractToken implements TokenInterface
      * requests with this Token.
      *
      * @param  string $secret
-     * @return \Zend\OAuth\Token\AbstractToken
+     * @return \ZendOAuth\Token\AbstractToken
      */
     public function setTokenSecret($secret)
     {
@@ -128,7 +128,7 @@ abstract class AbstractToken implements TokenInterface
      *
      * @param  string $key
      * @param  string $value
-     * @return \Zend\OAuth\Token\AbstractToken
+     * @return \ZendOAuth\Token\AbstractToken
      */
     public function setParam($key, $value)
     {
@@ -141,7 +141,7 @@ abstract class AbstractToken implements TokenInterface
      * a simple filter to remove any trailing newlines.
      *
      * @param  array $params
-     * @return \Zend\OAuth\Token\AbstractToken
+     * @return \ZendOAuth\Token\AbstractToken
      */
     public function setParams(array $params)
     {
@@ -169,7 +169,7 @@ abstract class AbstractToken implements TokenInterface
      * Sets the value for a Token.
      *
      * @param  string $token
-     * @return \Zend\OAuth\Token\AbstractToken
+     * @return \ZendOAuth\Token\AbstractToken
      */
     public function setToken($token)
     {

@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth;
+namespace ZendOAuth;
 
 /**
  * @category   Zend
@@ -48,18 +48,18 @@ class Http
     protected $_preferredRequestMethod = OAuth::POST;
 
     /**
-     * Instance of the general Zend\OAuth\Http\Utility class.
+     * Instance of the general ZendOAuth\Http\Utility class.
      *
-     * @var \Zend\OAuth\Http\Utility
+     * @var \ZendOAuth\Http\Utility
      */
     protected $_httpUtility = null;
 
     /**
      * Constructor
      *
-     * @param  \Zend\OAuth\Consumer $consumer
+     * @param  \ZendOAuth\Consumer $consumer
      * @param  null|array $parameters
-     * @param  null|\Zend\OAuth\Http\Utility $utility
+     * @param  null|\ZendOAuth\Http\Utility $utility
      * @return void
      */
     public function __construct(

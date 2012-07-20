@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Token;
+namespace ZendOAuth\Token;
 
-use Zend\OAuth\Http;
+use ZendOAuth\Http;
 
 /**
  * @category   Zend
@@ -27,7 +27,7 @@ class AuthorizedRequest extends AbstractToken
      * Constructor
      *
      * @param  null|array $data
-     * @param  null|\Zend\OAuth\Http\Utility $utility
+     * @param  null|\ZendOAuth\Http\Utility $utility
      * @return void
      */
     public function __construct(array $data = null, Http\Utility $utility = null)

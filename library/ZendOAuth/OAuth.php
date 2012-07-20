@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth;
+namespace ZendOAuth;
 
 use Zend\Http\Client as HTTPClient;
 

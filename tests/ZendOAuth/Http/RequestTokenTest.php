@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth\Http;
+namespace ZendOAuthTest\Http;
 
-use Zend\OAuth\Http;
+use ZendOAuth\Http;
 use Zend\OAuth;
 
 /**

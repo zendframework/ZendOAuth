@@ -8,11 +8,11 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Token;
+namespace ZendOAuth\Token;
 
 use Zend\Http\Response as HTTPResponse;
-use Zend\OAuth\Client;
-use Zend\OAuth\Http\Utility as HTTPUtility;
+use ZendOAuth\Client;
+use ZendOAuth\Http\Utility as HTTPUtility;
 
 /**
  * @category   Zend
@@ -24,7 +24,7 @@ class Request extends AbstractToken
      * Constructor
      *
      * @param null|Zend\Http\Response $response
-     * @param null|Zend\OAuth\Http\Utility $utility
+     * @param null|ZendOAuth\Http\Utility $utility
      */
     public function __construct(
         HTTPResponse $response = null,

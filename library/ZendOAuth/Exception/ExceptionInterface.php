@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Exception;
+namespace ZendOAuth\Exception;
 
 /**
  * @category   Zend

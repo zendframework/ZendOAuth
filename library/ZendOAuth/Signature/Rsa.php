@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Signature;
+namespace ZendOAuth\Signature;
 
 use Zend\Crypt\PublicKey\Rsa as RsaEnc;
 use Zend\Crypt\PublicKey\RsaOptions as RsaEncOptions;

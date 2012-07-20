@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth;
+namespace ZendOAuth;
 
 use Traversable;
 use Zend\Http\Client as HttpClient;
@@ -211,7 +211,7 @@ class Client extends HttpClient
      * being used.
      *
      * @return void
-     * @throws \Zend\OAuth\Exception\RuntimeException If POSTBODY scheme requested, but GET request method used; or if invalid request scheme provided
+     * @throws \ZendOAuth\Exception\RuntimeException If POSTBODY scheme requested, but GET request method used; or if invalid request scheme provided
      */
     public function prepareOAuth()
     {

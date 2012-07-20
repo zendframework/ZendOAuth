@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth;
+namespace ZendOAuth;
 
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
@@ -24,19 +24,19 @@ class Consumer extends OAuth
     /**
      * Request Token retrieved from OAuth Provider
      *
-     * @var \Zend\OAuth\Token\Request
+     * @var \ZendOAuth\Token\Request
      */
     protected $_requestToken = null;
 
     /**
      * Access token retrieved from OAuth Provider
      *
-     * @var \Zend\OAuth\Token\Access
+     * @var \ZendOAuth\Token\Access
      */
     protected $_accessToken = null;
 
     /**
-     * @var \Zend\OAuth\Config
+     * @var \ZendOAuth\Config
      */
     protected $_config = null;
 
@@ -64,8 +64,8 @@ class Consumer extends OAuth
      *
      * @param  null|array $customServiceParameters Non-OAuth Provider-specified parameters
      * @param  null|string $httpMethod
-     * @param  null|Zend\OAuth\Http\RequestToken $request
-     * @return Zend\OAuth\Token\Request
+     * @param  null|ZendOAuth\Http\RequestToken $request
+     * @return ZendOAuth\Token\Request
      */
     public function getRequestToken(
         array $customServiceParameters = null,
@@ -95,8 +95,8 @@ class Consumer extends OAuth
      * Request Token for a fully authorized Access Token.
      *
      * @param  null|array $customServiceParameters
-     * @param  null|Zend\OAuth\Token\Request $token
-     * @param  null|Zend\OAuth\HTTP\UserAuthorization $redirect
+     * @param  null|ZendOAuth\Token\Request $token
+     * @param  null|ZendOAuth\HTTP\UserAuthorization $redirect
      * @return string
      */
     public function getRedirectUrl(
@@ -122,7 +122,7 @@ class Consumer extends OAuth
      * Sends headers and exit()s on completion.
      *
      * @param  null|array $customServiceParameters
-     * @param  null|Zend\OAuth\Http\UserAuthorization $request
+     * @param  null|ZendOAuth\Http\UserAuthorization $request
      * @return void
      */
     public function redirect(
@@ -139,10 +139,10 @@ class Consumer extends OAuth
      * Request Token.
      *
      * @param  array $queryData GET data returned in user's redirect from Provider
-     * @param  \Zend\OAuth\Token\Request Request Token information
+     * @param  \ZendOAuth\Token\Request Request Token information
      * @param  string $httpMethod
-     * @param  \Zend\OAuth\Http\AccessToken $request
-     * @return \Zend\OAuth\Token\Access
+     * @param  \ZendOAuth\Http\AccessToken $request
+     * @return \ZendOAuth\Token\Access
      * @throws Exception\InvalidArgumentException on invalid authorization token, non-matching response authorization token, or unprovided authorization token
      */
     public function getAccessToken(
@@ -191,7 +191,7 @@ class Consumer extends OAuth
      * Return whatever the last Request Token retrieved was while using the
      * current Consumer instance.
      *
-     * @return \Zend\OAuth\Token\Request
+     * @return \ZendOAuth\Token\Request
      */
     public function getLastRequestToken()
     {
@@ -202,7 +202,7 @@ class Consumer extends OAuth
      * Return whatever the last Access Token retrieved was while using the
      * current Consumer instance.
      *
-     * @return \Zend\OAuth\Token\Access
+     * @return \ZendOAuth\Token\Access
      */
     public function getLastAccessToken()
     {
@@ -212,7 +212,7 @@ class Consumer extends OAuth
     /**
      * Alias to self::getLastAccessToken()
      *
-     * @return \Zend\OAuth\Token\Access
+     * @return \ZendOAuth\Token\Access
      */
     public function getToken()
     {

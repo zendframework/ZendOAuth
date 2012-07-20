@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth;
+namespace ZendOAuthTest;
 
 use Zend\OAuth;
 

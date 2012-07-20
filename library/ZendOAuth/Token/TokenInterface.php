@@ -8,10 +8,10 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Token;
+namespace ZendOAuth\Token;
 
 use Zend\Http\Response as HTTPResponse;
-use Zend\OAuth\Http\Utility as HTTPUtility;
+use ZendOAuth\Http\Utility as HTTPUtility;
 
 interface TokenInterface
 {
@@ -49,7 +49,7 @@ interface TokenInterface
      * Set the Token's signing secret.
      *
      * @param  string $secret
-     * @return Zend\OAuth\Token
+     * @return ZendOAuth\Token
      */
     public function setTokenSecret($secret);
 

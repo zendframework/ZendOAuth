@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Signature;
+namespace ZendOAuth\Signature;
 
 use Zend\Crypt\Hmac as HMACEncryption;
 

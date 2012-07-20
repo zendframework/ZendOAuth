@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth\Token;
+namespace ZendOAuthTest\Token;
 
-use Zend\OAuth\Token\Access as AccessToken;
+use ZendOAuth\Token\Access as AccessToken;
 use Zend\Http\Response as HTTPResponse;
 
 /**
@@ -114,7 +114,7 @@ class AccessTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class HTTPUtility90244 extends \Zend\OAuth\Http\Utility
+class HTTPUtility90244 extends \ZendOAuth\Http\Utility
 {
     public function __construct(){}
     public function generateNonce(){return md5('1234567890');}
@@ -126,7 +126,7 @@ class HTTPUtility90244 extends \Zend\OAuth\Http\Utility
     }
 }
 
-class Config90244 extends \Zend\OAuth\Config\StandardConfig
+class Config90244 extends \ZendOAuth\Config\StandardConfig
 {
     public function getConsumerKey(){return '1234567890';}
     public function getSignatureMethod(){return 'HMAC-SHA1';}

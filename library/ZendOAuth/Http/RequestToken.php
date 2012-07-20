@@ -8,11 +8,11 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Http;
+namespace ZendOAuth\Http;
 
 use Zend\Http;
 use Zend\OAuth;
-use Zend\OAuth\Http as HTTPClient;
+use ZendOAuth\Http as HTTPClient;
 
 /**
  * @category   Zend
@@ -30,7 +30,7 @@ class RequestToken extends HTTPClient
     /**
      * Initiate a HTTP request to retrieve a Request Token.
      *
-     * @return Zend\OAuth\Token\Request
+     * @return ZendOAuth\Token\Request
      */
     public function execute()
     {

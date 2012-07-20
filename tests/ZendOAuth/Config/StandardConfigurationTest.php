@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth\Config;
+namespace ZendOAuthTest\Config;
 
 
 /**
@@ -17,7 +17,7 @@ namespace ZendTest\OAuth\Config;
  * @subpackage UnitTests
  * @group      Zend_OAuth
  */
-use Zend\OAuth\Config\StandardConfig;
+use ZendOAuth\Config\StandardConfig;
 
 class StandardConfigurationTest extends \PHPUnit_Framework_TestCase
 {

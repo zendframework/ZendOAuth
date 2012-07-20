@@ -8,10 +8,10 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Token;
+namespace ZendOAuth\Token;
 
 use Zend\OAuth;
-use Zend\OAuth\Config\ConfigInterface as Config;
+use ZendOAuth\Config\ConfigInterface as Config;
 use Zend\Uri;
 
 /**
@@ -49,7 +49,7 @@ class Access extends AbstractToken
      * Cast to HTTP query string
      *
      * @param  mixed $url
-     * @param  Zend\OAuth\Config $config
+     * @param  ZendOAuth\Config $config
      * @param  null|array $params
      * @return string
      * @throws OAuth\Exception\InvalidArgumentException

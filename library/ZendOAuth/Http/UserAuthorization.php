@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Http;
+namespace ZendOAuth\Http;
 
-use Zend\OAuth\Http as HTTPClient;
+use ZendOAuth\Http as HTTPClient;
 use Zend\Uri;
 
 /**
@@ -48,7 +48,7 @@ class UserAuthorization extends HTTPClient
             'oauth_token' => $this->_consumer->getLastRequestToken()->getToken(),
         );
 
-        if (!\Zend\OAuth\Client::$supportsRevisionA) {
+        if (!\ZendOAuth\Client::$supportsRevisionA) {
             $callback = $this->_consumer->getCallbackUrl();
             if (!empty($callback)) {
                 $params['oauth_callback'] = $callback;

@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace ZendTest\OAuth\Signature;
+namespace ZendOAuthTest\Signature;
 
-use Zend\OAuth\Signature;
+use ZendOAuth\Signature;
 
 /**
  * @category   Zend

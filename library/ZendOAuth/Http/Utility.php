@@ -8,7 +8,7 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Http;
+namespace ZendOAuth\Http;
 
 use Zend\OAuth;
 
@@ -23,7 +23,7 @@ class Utility
      * params other than the defaults expected for any OAuth query.
      *
      * @param  string $url
-     * @param  Zend\OAuth\Config $config
+     * @param  ZendOAuth\Config $config
      * @param  null|array $serviceProviderParams
      * @return array
      */
@@ -133,10 +133,10 @@ class Utility
         $hashAlgo  = null;
         $parts     = explode('-', $signatureMethod);
         if (count($parts) > 1) {
-            $className = 'Zend\OAuth\Signature\\' . ucfirst(strtolower($parts[0]));
+            $className = 'ZendOAuth\Signature\\' . ucfirst(strtolower($parts[0]));
             $hashAlgo  = $parts[1];
         } else {
-            $className = 'Zend\OAuth\Signature\\' . ucfirst(strtolower($signatureMethod));
+            $className = 'ZendOAuth\Signature\\' . ucfirst(strtolower($signatureMethod));
         }
 
         $signatureObject = new $className($consumerSecret, $tokenSecret, $hashAlgo);

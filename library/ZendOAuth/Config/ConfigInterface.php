@@ -8,9 +8,9 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Config;
+namespace ZendOAuth\Config;
 
-use Zend\OAuth\Token\TokenInterface;
+use ZendOAuth\Token\TokenInterface;
 
 /**
  * @category   Zend

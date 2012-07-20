@@ -8,13 +8,14 @@
  * @package   Zend_OAuth
  */
 
-namespace Zend\OAuth\Config;
+namespace ZendOAuth\Config;
 
 use Traversable;
 use Zend\OAuth;
-use Zend\OAuth\Config as OAuthConfig;
+use ZendOAuth\Config as OAuthConfig;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Uri;
+use ZendOAuth\Token\TokenInterface;
 
 /**
  * @category   Zend
@@ -129,7 +130,7 @@ class StandardConfig implements ConfigInterface
      * Generally this will nearly always be an Access Token represented as a
      * Zend_OAuth_Token_Access object.
      *
-     * @var \Zend\OAuth\Token\TokenInterface
+     * @var \ZendOAuth\Token\TokenInterface
      */
     protected $_token = null;
 
@@ -604,7 +605,7 @@ class StandardConfig implements ConfigInterface
      * @param  OAuth\Token\TokenInterface $token
      * @return StandardConfig
      */
-    public function setToken(OAuth\Token\TokenInterface $token)
+    public function setToken(TokenInterface $token)
     {
         $this->_token = $token;
         return $this;
