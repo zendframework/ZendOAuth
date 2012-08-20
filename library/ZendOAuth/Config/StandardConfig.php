@@ -11,7 +11,7 @@
 namespace ZendOAuth\Config;
 
 use Traversable;
-use Zend\OAuth;
+use ZendOAuth\OAuth;
 use ZendOAuth\Config as OAuthConfig;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Uri;
@@ -37,7 +37,7 @@ class StandardConfig implements ConfigInterface
      *
      * @var string
      */
-    protected $_requestScheme = OAuth\OAuth::REQUEST_SCHEME_HEADER;
+    protected $_requestScheme = OAuth::REQUEST_SCHEME_HEADER;
 
     /**
      * Preferred request Method - one of GET or POST - which Zend_OAuth
@@ -46,7 +46,7 @@ class StandardConfig implements ConfigInterface
      *
      * @var string
      */
-    protected $_requestMethod = OAuth\OAuth::POST;
+    protected $_requestMethod = OAuth::POST;
 
     /**
      * OAuth Version; This defaults to 1.0 - Must not be changed!
@@ -279,7 +279,7 @@ class StandardConfig implements ConfigInterface
                 'HMAC-SHA1', 'HMAC-SHA256', 'RSA-SHA1', 'PLAINTEXT'
             ))
         ) {
-            throw new OAuth\Exception\InvalidArgumentException('Unsupported signature method: '
+            throw new \ZendOAuth\Exception\InvalidArgumentException('Unsupported signature method: '
                 . $method
                 . '. Supported are HMAC-SHA1, RSA-SHA1, PLAINTEXT and HMAC-SHA256');
         }

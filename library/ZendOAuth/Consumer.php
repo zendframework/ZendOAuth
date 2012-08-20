@@ -82,6 +82,7 @@ class Consumer extends OAuth
         } else {
             $request->setMethod($this->getRequestMethod());
         }
+
         $this->_requestToken = $request->execute();
         return $this->_requestToken;
     }
@@ -234,6 +235,6 @@ class Consumer extends OAuth
         if (!method_exists($this->_config, $method)) {
             throw new Exception\BadMethodCallException('Method does not exist: '.$method);
         }
-        return call_user_func_array(array($this->_config,$method), $args);
+        return call_user_func_array(array($this->_config, $method), $args);
     }
 }
