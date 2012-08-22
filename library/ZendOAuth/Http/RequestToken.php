@@ -11,7 +11,7 @@
 namespace ZendOAuth\Http;
 
 use Zend\Http;
-use Zend\OAuth;
+use ZendOAuth\OAuth;
 use ZendOAuth\Http as HTTPClient;
 
 /**
@@ -36,7 +36,7 @@ class RequestToken extends HTTPClient
     {
         $params   = $this->assembleParams();
         $response = $this->startRequestCycle($params);
-        $return   = new OAuth\Token\Request($response);
+        $return   = new \ZendOAuth\Token\Request($response);
         return $return;
     }
 
@@ -90,7 +90,9 @@ class RequestToken extends HTTPClient
         $headerValue = $this->_httpUtility->toAuthorizationHeader(
             $params
         );
-        $client = OAuth\OAuth::getHttpClient();
+
+        $client = OAuth::getHttpClient();
+
         $client->setUri($this->_consumer->getRequestTokenUrl());
 
         $request = $client->getRequest();
@@ -100,6 +102,7 @@ class RequestToken extends HTTPClient
         if (!empty($rawdata)) {
             $request->setContent($rawdata);
         }
+
         $client->setMethod($this->_preferredRequestMethod);
         return $client;
     }
@@ -113,7 +116,7 @@ class RequestToken extends HTTPClient
      */
     public function getRequestSchemePostBodyClient(array $params)
     {
-        $client = OAuth\OAuth::getHttpClient();
+        $client = OAuth::getHttpClient();
         $client->setUri($this->_consumer->getRequestTokenUrl());
         $client->setMethod($this->_preferredRequestMethod);
         $request = $client->getRequest();

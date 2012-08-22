@@ -25,9 +25,9 @@ class Http
     protected $_parameters = array();
 
     /**
-     * Reference to the Zend_OAuth_Consumer instance in use.
+     * Reference to the Consumer instance in use.
      *
-     * @var string
+     * @var Consumer
      */
     protected $_consumer = null;
 
@@ -269,6 +269,7 @@ class Http
                     $this->_consumer->getRequestTokenUrl());
                 break;
         }
+
         return $httpClient->send();
     }
 }
