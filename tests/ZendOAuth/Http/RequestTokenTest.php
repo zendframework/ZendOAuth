@@ -11,7 +11,8 @@
 namespace ZendOAuthTest\Http;
 
 use ZendOAuth\Http;
-use Zend\OAuth;
+use ZendOAuth\Consumer;
+use ZendOAuth\OAuth;
 
 /**
  * @category   Zend
@@ -29,12 +30,12 @@ class RequestTokenTest extends \PHPUnit_Framework_TestCase
         $this->stubConsumer = new Consumer32874;
         $this->stubConsumer2 = new Consumer32874b;
         $this->stubHttpUtility = new HTTPUtility32874;
-        OAuth\OAuth::setHttpClient(new HTTPClient32874);
+        OAuth::setHttpClient(new HTTPClient32874);
     }
 
     public function teardown()
     {
-        OAuth\OAuth::clearHttpClient();
+        OAuth::clearHttpClient();
     }
 
     public function testConstructorSetsConsumerInstance()
@@ -176,7 +177,7 @@ class RequestTokenTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class Consumer32874 extends OAuth\Consumer
+class Consumer32874 extends Consumer
 {
     public function getConsumerKey(){return '1234567890';}
     public function getSignatureMethod(){return 'HMAC-SHA1';}
@@ -185,7 +186,7 @@ class Consumer32874 extends OAuth\Consumer
     public function getCallbackUrl(){return 'http://www.example.com/local';}
 }
 
-class Consumer32874b extends OAuth\Consumer
+class Consumer32874b extends Consumer
 {
     public function getConsumerKey(){return '1234567890';}
     public function getSignatureMethod(){return 'HMAC-SHA1';}

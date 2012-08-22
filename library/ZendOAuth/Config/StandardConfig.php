@@ -12,6 +12,7 @@ namespace ZendOAuth\Config;
 
 use Traversable;
 use ZendOAuth\OAuth;
+use ZendOAuth\Exception;
 use ZendOAuth\Config as OAuthConfig;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Uri;
@@ -270,7 +271,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $method
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException if unsupported signature method specified
+     * @throws Exception\InvalidArgumentException if unsupported signature method specified
      */
     public function setSignatureMethod($method)
     {
@@ -279,7 +280,7 @@ class StandardConfig implements ConfigInterface
                 'HMAC-SHA1', 'HMAC-SHA256', 'RSA-SHA1', 'PLAINTEXT'
             ))
         ) {
-            throw new \ZendOAuth\Exception\InvalidArgumentException('Unsupported signature method: '
+            throw new Exception\InvalidArgumentException('Unsupported signature method: '
                 . $method
                 . '. Supported are HMAC-SHA1, RSA-SHA1, PLAINTEXT and HMAC-SHA256');
         }
@@ -302,25 +303,25 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $scheme
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException if invalid scheme specified, or if POSTBODY set when request method of GET is specified
+     * @throws Exception\InvalidArgumentException if invalid scheme specified, or if POSTBODY set when request method of GET is specified
      */
     public function setRequestScheme($scheme)
     {
         $scheme = strtolower($scheme);
         if (!in_array($scheme, array(
-                OAuth\OAuth::REQUEST_SCHEME_HEADER,
-                OAuth\OAuth::REQUEST_SCHEME_POSTBODY,
-                OAuth\OAuth::REQUEST_SCHEME_QUERYSTRING,
+                OAuth::REQUEST_SCHEME_HEADER,
+                OAuth::REQUEST_SCHEME_POSTBODY,
+                OAuth::REQUEST_SCHEME_QUERYSTRING,
             ))
         ) {
-            throw new OAuth\Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 '\'' . $scheme . '\' is an unsupported request scheme'
             );
         }
-        if ($scheme == OAuth\OAuth::REQUEST_SCHEME_POSTBODY
-            && $this->getRequestMethod() == OAuth\OAuth::GET
+        if ($scheme == OAuth::REQUEST_SCHEME_POSTBODY
+            && $this->getRequestMethod() == OAuth::GET
         ) {
-            throw new OAuth\Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 'Cannot set POSTBODY request method if HTTP method set to GET'
             );
         }
@@ -365,7 +366,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url Valid URI or Out-Of-Band constant 'oob'
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setCallbackUrl($url)
     {
@@ -391,7 +392,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setSiteUrl($url)
     {
@@ -415,7 +416,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setRequestTokenUrl($url)
     {
@@ -445,7 +446,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setAccessTokenUrl($url)
     {
@@ -475,7 +476,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setUserAuthorizationUrl($url)
     {
@@ -487,7 +488,7 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid URLs
+     * @throws Exception\InvalidArgumentException for invalid URLs
      */
     public function setAuthorizeUrl($url)
     {
@@ -527,19 +528,19 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $method
      * @return StandardConfig
-     * @throws OAuth\Exception\InvalidArgumentException for invalid request methods
+     * @throws Exception\InvalidArgumentException for invalid request methods
      */
     public function setRequestMethod($method)
     {
         $method = strtoupper($method);
         if (!in_array($method, array(
-                OAuth\OAuth::GET,
-                OAuth\OAuth::POST,
-                OAuth\OAuth::PUT,
-                OAuth\OAuth::DELETE,
+                OAuth::GET,
+                OAuth::POST,
+                OAuth::PUT,
+                OAuth::DELETE,
             ))
         ) {
-            throw new OAuth\Exception\InvalidArgumentException('Invalid method: ' . $method);
+            throw new Exception\InvalidArgumentException('Invalid method: ' . $method);
         }
         $this->_requestMethod = $method;
         return $this;
@@ -602,7 +603,7 @@ class StandardConfig implements ConfigInterface
     /**
      * Set OAuth token
      *
-     * @param  OAuth\Token\TokenInterface $token
+     * @param  TokenInterface $token
      * @return StandardConfig
      */
     public function setToken(TokenInterface $token)
@@ -614,7 +615,7 @@ class StandardConfig implements ConfigInterface
     /**
      * Get OAuth token
      *
-     * @return OAuth\Token\TokenInterface
+     * @return TokenInterface
      */
     public function getToken()
     {
@@ -626,15 +627,15 @@ class StandardConfig implements ConfigInterface
      *
      * @param  string $url
      * @return void
-     * @throws OAuth\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     protected function _validateUrl($url)
     {
         $uri = Uri\UriFactory::factory($url);
         if (!$uri->isValid()) {
-            throw new OAuth\Exception\InvalidArgumentException(sprintf("'%s' is not a valid URI", $url));
+            throw new Exception\InvalidArgumentException(sprintf("'%s' is not a valid URI", $url));
         } elseif (!in_array($uri->getScheme(), array('http', 'https'))) {
-            throw new OAuth\Exception\InvalidArgumentException(sprintf("'%s' is not a valid URI", $url));
+            throw new Exception\InvalidArgumentException(sprintf("'%s' is not a valid URI", $url));
         }
     }
 }

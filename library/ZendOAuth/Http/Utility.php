@@ -10,7 +10,7 @@
 
 namespace ZendOAuth\Http;
 
-use Zend\OAuth;
+use ZendOAuth\Config\ConfigInterface;
 
 /**
  * @category   Zend
@@ -23,13 +23,13 @@ class Utility
      * params other than the defaults expected for any OAuth query.
      *
      * @param  string $url
-     * @param  ZendOAuth\Config $config
+     * @param  ConfigInterface $config
      * @param  null|array $serviceProviderParams
      * @return array
      */
     public function assembleParams(
         $url,
-        OAuth\Config\ConfigInterface $config,
+        ConfigInterface $config,
         array $serviceProviderParams = null
     ) {
         $params = array(
@@ -62,7 +62,7 @@ class Utility
     }
 
     /**
-     * Given both OAuth parameters and any custom parametere, generate an
+     * Given both OAuth parameters and any custom parameters, generate an
      * encoded query string. This method expects parameters to have been
      * assembled and signed beforehand.
      *

@@ -12,6 +12,7 @@ namespace ZendOAuth\Http;
 
 use Zend\Http;
 use ZendOAuth\OAuth;
+use ZendOAuth\Token;
 use ZendOAuth\Http as HTTPClient;
 
 /**
@@ -30,13 +31,13 @@ class RequestToken extends HTTPClient
     /**
      * Initiate a HTTP request to retrieve a Request Token.
      *
-     * @return ZendOAuth\Token\Request
+     * @return Token\Request
      */
     public function execute()
     {
         $params   = $this->assembleParams();
         $response = $this->startRequestCycle($params);
-        $return   = new \ZendOAuth\Token\Request($response);
+        $return   = new Token\Request($response);
         return $return;
     }
 

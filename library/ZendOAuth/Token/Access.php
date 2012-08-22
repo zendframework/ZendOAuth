@@ -10,7 +10,8 @@
 
 namespace ZendOAuth\Token;
 
-use Zend\OAuth;
+use ZendOAuth\Client;
+use ZendOAuth\Exception;
 use ZendOAuth\Config\ConfigInterface as Config;
 use Zend\Uri;
 
@@ -28,7 +29,7 @@ class Access extends AbstractToken
      * @param  null|array $customParams
      * @param  null|string $realm
      * @return string
-     * @throws OAuth\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function toHeader(
         $url, Config $config, array $customParams = null, $realm = null
@@ -37,7 +38,7 @@ class Access extends AbstractToken
         if (!$uri->isValid()
             || !in_array($uri->getScheme(), array('http', 'https'))
         ) {
-            throw new OAuth\Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 '\'' . $url . '\' is not a valid URI'
             );
         }
@@ -52,7 +53,7 @@ class Access extends AbstractToken
      * @param  ZendOAuth\Config $config
      * @param  null|array $params
      * @return string
-     * @throws OAuth\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      */
     public function toQueryString($url, Config $config, array $params = null)
     {
@@ -60,7 +61,7 @@ class Access extends AbstractToken
         if (!$uri->isValid()
             || !in_array($uri->getScheme(), array('http', 'https'))
         ) {
-            throw new OAuth\Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 '\'' . $url . '\' is not a valid URI'
             );
         }
@@ -75,11 +76,11 @@ class Access extends AbstractToken
      * @param  null|string $uri
      * @param  null|array|\Traversable $config
      * @param  bool $excludeCustomParamsFromHeader
-     * @return OAuth\Client
+     * @return Client
      */
     public function getHttpClient(array $oauthOptions, $uri = null, $config = null, $excludeCustomParamsFromHeader = true)
     {
-        $client = new OAuth\Client($oauthOptions, $uri, $config, $excludeCustomParamsFromHeader);
+        $client = new Client($oauthOptions, $uri, $config, $excludeCustomParamsFromHeader);
         $client->setToken($this);
         return $client;
     }
