@@ -33,7 +33,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
     public function testCanSetCustomHttpClient()
     {
         OAuth::setHttpClient(new HTTPClient19485876());
-        $this->assertInstanceOf('ZendTest\\OAuth\\HttpClient19485876', OAuth::getHttpClient());
+        $this->assertInstanceOf('ZendOAuthTest\HttpClient19485876', OAuth::getHttpClient());
     }
 
     public function testGetHttpClientResetsParameters()
@@ -43,7 +43,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         OAuth::setHttpClient($client);
         $resetClient = OAuth::getHttpClient();
         $resetClient->setUri('http://www.example.com');
-        $this->assertEquals('http://www.example.com', (string) $resetClient->getUri(true));
+        $this->assertEquals('http://www.example.com/', (string) $resetClient->getUri(true));
     }
 
     public function testGetHttpClientResetsAuthorizationHeader()
@@ -88,7 +88,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
     public function testOauthClientUsingGetRequestParametersForSignature()
     {
-        $mock = $this->getMock('Zend\\OAuth\\Http\\Utility', array('generateTimestamp', 'generateNonce'));
+        $mock = $this->getMock('ZendOAuth\Http\Utility', array('generateTimestamp', 'generateNonce'));
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
@@ -108,7 +108,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
     public function testOauthClientUsingPostRequestParametersForSignature()
     {
-        $mock = $this->getMock('Zend\\OAuth\\Http\\Utility', array('generateTimestamp', 'generateNonce'));
+        $mock = $this->getMock('ZendOAuth\Http\Utility', array('generateTimestamp', 'generateNonce'));
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
@@ -128,7 +128,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
     public function testOauthClientUsingPostAndGetRequestParametersForSignature()
     {
-        $mock = $this->getMock('Zend\\OAuth\\Http\\Utility', array('generateTimestamp', 'generateNonce'));
+        $mock = $this->getMock('ZendOAuth\Http\Utility', array('generateTimestamp', 'generateNonce'));
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 

@@ -183,7 +183,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase
         $config = array('consumerKey'=>'12345','consumerSecret'=>'54321');
         $consumer = new Consumer($config);
         $token = $consumer->getRequestToken(null, null, new RequestToken48231);
-        $this->assertInstanceOf('Zend\\OAuth\\Token\\Request', $token);
+        $this->assertInstanceOf('ZendOAuth\Token\Request', $token);
     }
 
     public function testGetRedirectUrlReturnsUserAuthorizationUrlWithParameters()
@@ -209,21 +209,21 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase
         $rtoken = new Token\Request;
         $rtoken->setToken('token');
         $token = $consumer->getAccessToken(array('oauth_token'=>'token'), $rtoken, null, new AccessToken48231);
-        $this->assertInstanceOf('Zend\\OAuth\\Token\\Access', $token);
+        $this->assertInstanceOf('ZendOAuth\Token\Access', $token);
     }
 
     public function testGetLastRequestTokenReturnsInstanceWhenExists()
     {
         $config = array('consumerKey'=>'12345','consumerSecret'=>'54321');
         $consumer = new Consumer48231($config);
-        $this->assertInstanceOf('Zend\\OAuth\\Token\\Request', $consumer->getLastRequestToken());
+        $this->assertInstanceOf('ZendOAuth\Token\Request', $consumer->getLastRequestToken());
     }
 
     public function testGetLastAccessTokenReturnsInstanceWhenExists()
     {
         $config = array('consumerKey'=>'12345','consumerSecret'=>'54321');
         $consumer = new Consumer48231($config);
-        $this->assertInstanceOf('Zend\\OAuth\\Token\\Access', $consumer->getLastAccessToken());
+        $this->assertInstanceOf('ZendOAuth\Token\Access', $consumer->getLastAccessToken());
     }
 
 }

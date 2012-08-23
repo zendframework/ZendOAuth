@@ -32,7 +32,7 @@ class UserAuthorizationTest extends \PHPUnit_Framework_TestCase
     public function testConstructorSetsConsumerInstance()
     {
         $redirect = new Http\UserAuthorization($this->stubConsumer);
-        $this->assertInstanceOf('ZendTest\\OAuth\\Http\\Consumer34879', $redirect->getConsumer());
+        $this->assertInstanceOf('ZendOAuthTest\Http\Consumer34879', $redirect->getConsumer());
     }
 
     public function testConstructorSetsCustomServiceParameters()
