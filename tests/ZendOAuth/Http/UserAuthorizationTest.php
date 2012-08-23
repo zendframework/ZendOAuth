@@ -11,7 +11,7 @@
 namespace ZendOAuthTest\Http;
 
 use ZendOAuth\Http;
-use Zend\OAuth;
+use ZendOAuth\Consumer;
 
 /**
  * @category   Zend
@@ -62,7 +62,7 @@ class UserAuthorizationTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class Consumer34879 extends OAuth\Consumer
+class Consumer34879 extends Consumer
 {
     public function getUserAuthorizationUrl(){return 'http://www.example.com/authorize';}
     public function getCallbackUrl(){return 'http://www.example.com/local';}

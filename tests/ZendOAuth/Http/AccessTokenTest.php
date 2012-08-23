@@ -10,8 +10,10 @@
 
 namespace ZendOAuthTest\Http;
 
+use ZendOAuth\Consumer;
 use ZendOAuth\Http;
-use Zend\OAuth;
+use ZendOAuth\OAuth;
+use ZendOAuth\Token;
 
 /**
  * @category   Zend
@@ -28,12 +30,12 @@ class AccessTokenTest extends \PHPUnit_Framework_TestCase
     {
         $this->stubConsumer = new Consumer39745;
         $this->stubHttpUtility = new HTTPUtility39745;
-        OAuth\OAuth::setHttpClient(new HTTPClient39745);
+        OAuth::setHttpClient(new HTTPClient39745);
     }
 
     public function teardown()
     {
-        OAuth\OAuth::clearHttpClient();
+        OAuth::clearHttpClient();
     }
 
     public function testConstructorSetsConsumerInstance()
@@ -157,7 +159,7 @@ class AccessTokenTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class Consumer39745 extends OAuth\Consumer
+class Consumer39745 extends Consumer
 {
     public function getConsumerKey(){return '1234567890';}
     public function getSignatureMethod(){return 'HMAC-SHA1';}
@@ -170,7 +172,7 @@ class Consumer39745 extends OAuth\Consumer
     }
 }
 
-class HTTPUtility39745 extends OAuth\Http\Utility
+class HTTPUtility39745 extends Http\Utility
 {
     public function __construct(){}
     public function generateNonce(){return md5('1234567890');}
@@ -187,7 +189,7 @@ class HTTPClient39745 extends \Zend\Http\Client
     //public function getRawData(){return $this->raw_post_data;}
 }
 
-class RequestToken39745 extends OAuth\Token\Request
+class RequestToken39745 extends Token\Request
 {
     public function getToken(){return '0987654321';}
 }

@@ -10,7 +10,9 @@
 
 namespace ZendOAuthTest;
 
-use Zend\OAuth;
+use ZendOAuth\Client as OAuthClient;
+use ZendOAuth\OAuth;
+use ZendOAuth\Token;
 use Zend\Config\Config;
 use Zend\Http\Client;
 
@@ -25,21 +27,21 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
     public function teardown()
     {
-        OAuth\OAuth::clearHttpClient();
+        OAuth::clearHttpClient();
     }
 
     public function testCanSetCustomHttpClient()
     {
-        OAuth\OAuth::setHttpClient(new HTTPClient19485876());
-        $this->assertInstanceOf('ZendTest\\OAuth\\HttpClient19485876', OAuth\OAuth::getHttpClient());
+        OAuth::setHttpClient(new HTTPClient19485876());
+        $this->assertInstanceOf('ZendTest\\OAuth\\HttpClient19485876', OAuth::getHttpClient());
     }
 
     public function testGetHttpClientResetsParameters()
     {
         $client = new HTTPClient19485876();
         $client->setParameterGet(array('key'=>'value'));
-        OAuth\OAuth::setHttpClient($client);
-        $resetClient = OAuth\OAuth::getHttpClient();
+        OAuth::setHttpClient($client);
+        $resetClient = OAuth::getHttpClient();
         $resetClient->setUri('http://www.example.com');
         $this->assertEquals('http://www.example.com', (string) $resetClient->getUri(true));
     }
@@ -48,8 +50,8 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
     {
         $client = new HTTPClient19485876();
         $client->setHeaders(array('Authorization' => 'realm="http://www.example.com",oauth_version="1.0"'));
-        OAuth\OAuth::setHttpClient($client);
-        $resetClient = OAuth\OAuth::getHttpClient();
+        OAuth::setHttpClient($client);
+        $resetClient = OAuth::getHttpClient();
         $this->assertEquals(null, $resetClient->getHeader('Authorization'));
     }
 
@@ -64,7 +66,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         );
 
         $config = new Config($options);
-        $client = new OAuth\Client($config);
+        $client = new OAuthClient($config);
         $this->assertEquals('GET', $client->getRequestMethod());
         $this->assertEquals('http://www.example.com', $client->getSiteUrl());
     }
@@ -79,7 +81,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
             'siteUrl'       => 'http://www.example.com'
         );
 
-        $client = new OAuth\Client($options);
+        $client = new OAuthClient($options);
         $this->assertEquals('GET', $client->getRequestMethod());
         $this->assertEquals('http://www.example.com', $client->getSiteUrl());
     }
@@ -90,11 +92,11 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new OAuth\Token\Access(null, $mock);
+        $token   = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
-        $client = new OAuth\Client(array(
+        $client = new OAuthClient(array(
             'token' => $token
         ), 'http://www.example.com');
         $client->getRequest()->getQuery()->set('foo', 'bar');
@@ -110,11 +112,11 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new OAuth\Token\Access(null, $mock);
+        $token   = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
-        $client = new OAuth\Client(array(
+        $client = new OAuthClient(array(
             'token' => $token
         ), 'http://www.example.com');
         $client->getRequest()->getPost()->set('foo', 'bar');
@@ -130,11 +132,11 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new OAuth\Token\Access(null, $mock);
+        $token   = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
-        $client = new OAuth\Client(array(
+        $client = new OAuthClient(array(
             'token' => $token
         ), 'http://www.example.com');
         $client->getRequest()->getPost()->set('foo', 'bar');
