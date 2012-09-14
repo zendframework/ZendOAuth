@@ -114,9 +114,8 @@ class Client extends HttpClient
     {
         if ($this->_streamingRequest) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -131,9 +130,8 @@ class Client extends HttpClient
             $this->setHeaders(array('Content-Length' =>
                 $this->raw_post_data->getTotalSize()));
             return $this->raw_post_data;
-        } else {
-            return parent::prepareBody();
         }
+        return parent::prepareBody();
     }
 
     /**
