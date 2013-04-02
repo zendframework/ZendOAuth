@@ -93,7 +93,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -113,7 +113,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -133,7 +133,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -155,14 +155,14 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
         $client = new OAuthClient(array(
             'token' => $token
         ), 'http://www.example.com');
-        
+
         $headers = $client->getRequest()->getHeaders();
         $headers->addHeaders(array(
             Header\ContentType::fromString('Content-Type: application/octet-stream')
