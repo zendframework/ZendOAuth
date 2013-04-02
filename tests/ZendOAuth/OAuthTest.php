@@ -163,13 +163,13 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
             'token' => $token
         ), 'http://www.example.com');
 
+        $dummyHeader = Header\ContentType::fromString('Content-Type: application/octet-stream');
         $headers = $client->getRequest()->getHeaders();
-        $headers->addHeaders(array(
-            Header\ContentType::fromString('Content-Type: application/octet-stream')
-        ));
+        $headers->addHeaders(array($dummyHeader));
         $client->prepareOAuth();
 
         $this->assertTrue($client->getRequest()->getHeaders()->has('Content-Type'));
+        $this->assertEquals($dummyHeader, $client->getRequest()->getHeaders()->get('Content-Type'));
     }
 }
 
