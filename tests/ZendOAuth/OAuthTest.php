@@ -15,6 +15,7 @@ use ZendOAuth\OAuth;
 use ZendOAuth\Token;
 use Zend\Config\Config;
 use Zend\Http\Client;
+use Zend\Http\Header;
 
 /**
  * @category   Zend
@@ -92,7 +93,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -112,7 +113,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -132,7 +133,7 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
         $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
 
-        $token   = new Token\Access(null, $mock);
+        $token = new Token\Access(null, $mock);
         $token->setToken('123')
               ->setTokenSecret('456');
 
@@ -145,6 +146,30 @@ class OAuthTest extends \PHPUnit_Framework_TestCase
 
         $header = 'OAuth realm="",oauth_consumer_key="",oauth_nonce="67648c83ba9a7de429bd1b773fb96091",oauth_signature_method="HMAC-SHA1",oauth_timestamp="123456789",oauth_version="1.0",oauth_token="123",oauth_signature="qj3FYtStzP083hT9QkqCdxsMauw%3D"';
         $this->assertEquals($header, $client->getHeader('Authorization'));
+    }
+
+
+    public function testOAuthClientDoesntOverrideExistingHeaders()
+    {
+        $mock = $this->getMock('ZendOAuth\Http\Utility', array('generateTimestamp', 'generateNonce'));
+        $mock->expects($this->once())->method('generateTimestamp')->will($this->returnValue('123456789'));
+        $mock->expects($this->once())->method('generateNonce')->will($this->returnValue('67648c83ba9a7de429bd1b773fb96091'));
+
+        $token = new Token\Access(null, $mock);
+        $token->setToken('123')
+              ->setTokenSecret('456');
+
+        $client = new OAuthClient(array(
+            'token' => $token
+        ), 'http://www.example.com');
+
+        $dummyHeader = Header\ContentType::fromString('Content-Type: application/octet-stream');
+        $headers = $client->getRequest()->getHeaders();
+        $headers->addHeaders(array($dummyHeader));
+        $client->prepareOAuth();
+
+        $this->assertTrue($client->getRequest()->getHeaders()->has('Content-Type'));
+        $this->assertEquals($dummyHeader, $client->getRequest()->getHeaders()->get('Content-Type'));
     }
 }
 

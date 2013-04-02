@@ -221,7 +221,8 @@ class Client extends HttpClient
                     $this->_config,
                     $this->_getSignableParameters()
                 );
-                $this->setHeaders(array('Authorization' => $oauthHeaderValue));
+                $requestHeaders = $this->getRequest()->getHeaders();
+                $requestHeaders->addHeaders(array('Authorization' => $oauthHeaderValue));
                 break;
             case OAuth::REQUEST_SCHEME_POSTBODY:
                 if ($this->getRequestMethod() == HttpRequest::METHOD_GET) {
