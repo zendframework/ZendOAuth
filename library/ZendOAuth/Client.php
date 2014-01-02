@@ -69,31 +69,6 @@ class Client extends HttpClient
     }
 
     /**
-     * Return the current connection adapter
-     *
-     * @return \Zend\Http\Client\Adapter\AdapterInterface|string $adapter
-     */
-    public function getAdapter()
-    {
-        return $this->adapter;
-    }
-
-   /**
-     * Load the connection adapter
-     *
-     * @param \Zend\Http\Client\Adapter\AdapterInterface $adapter
-     * @return void
-     */
-    public function setAdapter($adapter)
-    {
-        if ($adapter == null) {
-            $this->adapter = $adapter;
-        } else {
-              parent::setAdapter($adapter);
-        }
-    }
-
-    /**
      * Set the streamingRequest variable which controls whether we are
      * sending the raw (already encoded) POST data from a stream source.
      *
