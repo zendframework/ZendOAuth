@@ -109,7 +109,7 @@ class AccessToken extends HTTPClient
         $client->setRawBody(
             $this->_httpUtility->toEncodedQueryString($params)
         );
-        $client->setHeaders(array('ContentType' => Http\Client::ENC_URLENCODED));
+        $client->setHeaders(array('Content-Type' => Http\Client::ENC_URLENCODED));
         return $client;
     }
 
