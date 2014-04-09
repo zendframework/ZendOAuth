@@ -123,7 +123,7 @@ class StandardConfig implements ConfigInterface
      * If relevant, a PEM encoded RSA public key encapsulated as a
      * Zend_Crypt_Rsa Key
      *
-     * @var \Zend\Crypt\Rsa\PublicKey\PublicKey
+     * @var \Zend\Crypt\PublicKey\Rsa\PublicKey
      */
     protected $_rsaPublicKey = null;
 
