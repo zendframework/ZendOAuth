@@ -2,7 +2,7 @@ ZendOAuth component
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to laminas/laminas-oauth.
+> This repository has moved to [laminas/laminas-oauth](https://github.com/laminas/laminas-oauth).
 
 You can install using:
 
